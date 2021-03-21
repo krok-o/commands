@@ -1,10 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
-// Execute is the main entrypoint for this test plugin.
-// Returns whatever the payload was for testing purposes.
-func Execute(payload string, opts ...interface{}) (string, bool, error) {
-	fmt.Println("Opts received: ", opts)
-	return payload, true, nil
+func main() {
+	args := os.Args
+	fmt.Println("Args received: ", args)
+
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+
+	fmt.Println("Read everything from input. Thanks")
 }
