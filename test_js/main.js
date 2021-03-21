@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var fs = require("fs");
 var stdinBuffer = fs.readFileSync(0); // STDIN_FILENO = 0
 console.log(stdinBuffer.toString());
