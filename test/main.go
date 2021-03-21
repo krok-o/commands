@@ -13,7 +13,7 @@ func main() {
 	var in string
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
-		string += scanner.Text()
+		in += scanner.Text()
 	}
 
 	fmt.Println("Text: ", in)
