@@ -12,6 +12,8 @@ import (
 type Notifier struct {
 	Payload string
 	Token   string
+	Message string
+	Channel string
 }
 
 // Notify notifies.
@@ -23,7 +25,7 @@ func (n Notifier) Notify() error {
 	fmt.Println("notifying: ", parser.RepoName())
 
 	api := slack.New(n.Token)
-	channelID, ts, err := api.PostMessage(fmt.Sprintf("repository %q received event", parser.RepoName()), slack.MsgOptionText("test", false))
+	channelID, ts, err := api.PostMessage(n.Channel, slack.MsgOptionText(fmt.Sprintf("repository %q received event", parser.RepoName()), false))
 	if err != nil {
 		return err
 	}

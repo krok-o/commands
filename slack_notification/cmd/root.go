@@ -18,6 +18,8 @@ var (
 	rootArgs struct {
 		platform string
 		token    string
+		channel  string
+		message  string
 	}
 )
 
@@ -26,6 +28,8 @@ func init() {
 	// Server Configs
 	flag.StringVar(&rootArgs.platform, "platform", "", "--platform github")
 	flag.StringVar(&rootArgs.token, "token", "", "--token slack-token")
+	flag.StringVar(&rootArgs.channel, "channel", "", "--channel ")
+	flag.StringVar(&rootArgs.message, "message", "", "--message Event occurred.")
 }
 
 // runRootCmd runs the main notifier command.
@@ -38,6 +42,8 @@ func runRootCmd(cmd *cobra.Command, args []string) {
 	n := pkg.Notifier{
 		Payload: in,
 		Token:   rootArgs.token,
+		Message: rootArgs.message,
+		Channel: rootArgs.channel,
 	}
 	if err := n.Notify(); err != nil {
 		fmt.Println("failed to send notification: ", err)
