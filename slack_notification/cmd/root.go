@@ -46,7 +46,7 @@ func runRootCmd(cmd *cobra.Command, args []string) {
 		Channel: rootArgs.channel,
 	}
 	if err := n.Notify(); err != nil {
-		fmt.Println("failed to send notification: ", err)
+		fmt.Fprintf(os.Stderr, "failed to send notification: %s", err)
 		os.Exit(1)
 	}
 }

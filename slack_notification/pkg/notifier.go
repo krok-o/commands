@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/slack-go/slack"
 
@@ -20,6 +21,7 @@ type Notifier struct {
 func (n Notifier) Notify() error {
 	parser, err := github.NewParser(n.Payload)
 	if err != nil {
+		fmt.Fprintf(os.Stderr, "failed to parse payload: %s", err)
 		return err
 	}
 	fmt.Println("notifying: ", parser.RepoName())
@@ -27,6 +29,7 @@ func (n Notifier) Notify() error {
 	api := slack.New(n.Token)
 	channelID, ts, err := api.PostMessage(n.Channel, slack.MsgOptionText(fmt.Sprintf("repository %q received event", parser.RepoName()), false))
 	if err != nil {
+		fmt.Fprintf(os.Stderr, "failed to post api message: %s", err)
 		return err
 	}
 	fmt.Printf("message posted to channel %s at %s\n", channelID, ts)
