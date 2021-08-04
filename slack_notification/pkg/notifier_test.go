@@ -1,4 +1,4 @@
-package main
+package pkg
 
 import (
 	"io/ioutil"
@@ -12,6 +12,7 @@ func TestNotifySlack(t *testing.T) {
 	content, err := ioutil.ReadFile(filepath.Join("testdata", "create.json"))
 	assert.NoError(t, err)
 
-	err = notifyViaSlack(string(content))
+	n := Notifier{Payload: string(content)}
+	err = n.Notify()
 	assert.NoError(t, err)
 }
