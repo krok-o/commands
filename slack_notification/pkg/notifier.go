@@ -3,6 +3,8 @@ package pkg
 import (
 	"fmt"
 
+	"github.com/slack-go/slack"
+
 	"github.com/krok-o/command-sdk/github"
 )
 
@@ -18,7 +20,13 @@ func (n Notifier) Notify() error {
 	if err != nil {
 		return err
 	}
-	fmt.Println("token: ", n.Token)
 	fmt.Println("notifying: ", parser.RepoName())
+
+	api := slack.New(n.Token)
+	channelID, ts, err := api.PostMessage(fmt.Sprintf("repository %q received event", parser.RepoName()), slack.MsgOptionText("test", false))
+	if err != nil {
+		return err
+	}
+	fmt.Printf("message posted to channel %s at %s\n", channelID, ts)
 	return nil
 }
