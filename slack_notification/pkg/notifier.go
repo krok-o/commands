@@ -11,10 +11,11 @@ import (
 
 // Notifier notifies.
 type Notifier struct {
-	Payload string
-	Token   string
-	Message string
-	Channel string
+	Payload   string
+	Token     string
+	Message   string
+	Channel   string
+	EventType string
 }
 
 // Notify notifies.
@@ -24,10 +25,10 @@ func (n Notifier) Notify() error {
 		fmt.Fprintf(os.Stderr, "failed to parse payload: %s", err)
 		return err
 	}
-	fmt.Println("notifying: ", parser.RepoName())
+	fmt.Printf("notifying: %s for event type: %s\n", parser.RepoName(), n.EventType)
 
 	api := slack.New(n.Token)
-	channelID, ts, err := api.PostMessage(n.Channel, slack.MsgOptionText(fmt.Sprintf("repository %q received event", parser.RepoName()), false))
+	channelID, ts, err := api.PostMessage(n.Channel, slack.MsgOptionText(fmt.Sprintf("repository %q received event type %q", parser.RepoName(), n.EventType), false))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "failed to post api message: %s", err)
 		return err
