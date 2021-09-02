@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"hugo-builder/cmd"
+	"issue-commenter/cmd"
 )
 
 func main() {

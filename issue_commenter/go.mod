@@ -1,4 +1,4 @@
-module hugo-builder
+module issue-commenter
 
 go 1.16
 
