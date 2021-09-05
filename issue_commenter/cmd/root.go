@@ -27,12 +27,6 @@ func init() {
 	flag.StringVar(&rootArgs.commenter.Payload, "payload", "", "--payload received from the platform")
 	flag.StringVar(&rootArgs.commenter.Token, "token", "", "--token contains the token to access the api of the repo")
 	flag.StringVar(&rootArgs.commenter.Message, "message", "", "--message the message to send")
-
-	if err := rootCmd.MarkPersistentFlagRequired("token"); err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to mark required flag.: %s", err)
-		os.Exit(1)
-	}
-
 }
 
 // runRootCmd runs the main notifier command.
