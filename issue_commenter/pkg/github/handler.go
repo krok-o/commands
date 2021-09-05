@@ -2,6 +2,7 @@ package github
 
 import (
 	"context"
+	"encoding/base64"
 	"fmt"
 	"os"
 	"strings"
@@ -31,7 +32,11 @@ func NewGithubHandler(payload string, message string, token string) *GithubHandl
 func (h *GithubHandler) Handle() error {
 	// TODO: This needs to be extracted into its own package.
 	// Needs to deal with Issues, right now it only handles PullRequests.
-	parser, err := kgithub.NewParser(h.Payload)
+	data, err := base64.StdEncoding.DecodeString(h.Payload)
+	if err != nil {
+		return fmt.Errorf("Failed to decode payload: %w", err)
+	}
+	parser, err := kgithub.NewParser(string(data))
 	if err != nil {
 		return fmt.Errorf("Failed to create parser: %w", err)
 	}
