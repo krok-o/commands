@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strings"
 
@@ -26,7 +27,7 @@ type GithubHandler struct {
 
 // NewGithubHandler creates a new handler for Events from Github.
 func NewGithubHandler(payload string, message string, token string) *GithubHandler {
-	return &GithubHandler{Payload: payload, Message: message}
+	return &GithubHandler{Payload: payload, Message: message, Token: token}
 }
 
 func (h *GithubHandler) Handle() error {
@@ -54,15 +55,23 @@ func (h *GithubHandler) Handle() error {
 	tc := oauth2.NewClient(context.Background(), ts)
 	client := github.NewClient(tc)
 	commentID := parser.CommentID()
-	issueID := parser.IssueID()
-	comment, _, err := client.Issues.GetComment(context.Background(), owner, repo, commentID)
+	issueNumber := parser.IssueNumber()
+	comment, response, err := client.Issues.GetComment(context.Background(), owner, repo, commentID)
 	if err != nil {
 		return fmt.Errorf("failed to get comment: %w", err)
 	}
+	if response.StatusCode < 200 || response.StatusCode > 299 {
+		content, err := ioutil.ReadAll(response.Body)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "failed to read body: %s", err)
+		}
+		return fmt.Errorf("status code was not 2xx but: %d with error message: %s", response.StatusCode, string(content))
+	}
+
 	// TODO: analyse command / run a plugin / etc...
 	h.Message += " in response to comment: " + comment.GetBody()
 
-	if _, _, err := client.Issues.CreateComment(context.Background(), owner, repo, int(issueID), &github.IssueComment{Body: &h.Message}); err != nil {
+	if _, _, err := client.Issues.CreateComment(context.Background(), owner, repo, int(issueNumber), &github.IssueComment{Body: &h.Message}); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to add comment: %s", err)
 		return err
 	}
