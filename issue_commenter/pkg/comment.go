@@ -12,6 +12,7 @@ type Config struct {
 	Payload   string
 	Token     string
 	Message   string
+	BotLogin  string
 }
 
 // Commenter takes a PR request and comments on it, if the previous
@@ -29,7 +30,7 @@ func NewCommenter(cfg Config) *Commenter {
 func (c *Commenter) Comment() error {
 	switch c.Platform {
 	case "github":
-		githubHandler := cgithub.NewGithubHandler(c.Payload, c.Message, c.Token)
+		githubHandler := cgithub.NewGithubHandler(c.Payload, c.Message, c.Token, c.BotLogin)
 		if err := githubHandler.Handle(); err != nil {
 			return fmt.Errorf("failed to handle event: %w", err)
 		}

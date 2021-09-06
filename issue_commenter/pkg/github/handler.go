@@ -20,14 +20,15 @@ type Handler interface {
 
 // GithubHandler defines a Github based handler.
 type GithubHandler struct {
-	Payload string
-	Message string
-	Token   string
+	Payload  string
+	Message  string
+	Token    string
+	BotLogin string
 }
 
 // NewGithubHandler creates a new handler for Events from Github.
-func NewGithubHandler(payload string, message string, token string) *GithubHandler {
-	return &GithubHandler{Payload: payload, Message: message, Token: token}
+func NewGithubHandler(payload string, message string, token string, botLogin string) *GithubHandler {
+	return &GithubHandler{Payload: payload, Message: message, Token: token, BotLogin: botLogin}
 }
 
 func (h *GithubHandler) Handle() error {
@@ -40,6 +41,10 @@ func (h *GithubHandler) Handle() error {
 	parser, err := kgithub.NewParser(string(data))
 	if err != nil {
 		return fmt.Errorf("Failed to create parser: %w", err)
+	}
+	commenter := parser.CommenterLogin()
+	if commenter == h.BotLogin {
+		return nil
 	}
 	fullName := parser.RepoName()
 	if !strings.Contains(fullName, "/") {

@@ -27,6 +27,7 @@ func init() {
 	flag.StringVar(&rootArgs.commenter.Payload, "payload", "", "--payload received from the platform")
 	flag.StringVar(&rootArgs.commenter.Token, "token", "", "--token contains the token to access the api of the repo")
 	flag.StringVar(&rootArgs.commenter.Message, "message", "", "--message the message to send")
+	flag.StringVar(&rootArgs.commenter.BotLogin, "bot-login", "", "--bot-login name of the commenter bot so we avoid replying to our own comment")
 }
 
 // runRootCmd runs the main notifier command.

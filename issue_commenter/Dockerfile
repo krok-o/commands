@@ -14,7 +14,7 @@ RUN go build -o issue-commenter main.go
 FROM ubuntu:latest
 LABEL "name"="Issue Commenter Command"
 LABEL "maintainer"="Gergely Brautigam <gergely@gergelybrautigam.com>"
-LABEL "version"="0.0.1"
+LABEL "version"="0.0.2"
 
 WORKDIR /app
 COPY --from=builder /build/issue-commenter .
