@@ -180,6 +180,8 @@ github.com/krok-o/command-sdk v0.0.0-20210804060502-2e4d2536d326 h1:2isjM/dh87Vg
 github.com/krok-o/command-sdk v0.0.0-20210804060502-2e4d2536d326/go.mod h1:GIHkXkrCcU5SHzYlYWsR7HgePR4NP9k1jfUBnWKnQAM=
 github.com/krok-o/command-sdk v0.0.0-20210905123127-beb0819fbd33 h1:sZ3xQpxBSzpMKrWfu7+1w8Kjsms3Q//pv5UxaxXy3lo=
 github.com/krok-o/command-sdk v0.0.0-20210905123127-beb0819fbd33/go.mod h1:GIHkXkrCcU5SHzYlYWsR7HgePR4NP9k1jfUBnWKnQAM=
+github.com/krok-o/command-sdk v0.0.0-20210905195302-1d74d5fe33b3 h1:pRjcmxaecV8ZgIW89RC4KeQusWRvwUEOahQHbibCW4c=
+github.com/krok-o/command-sdk v0.0.0-20210905195302-1d74d5fe33b3/go.mod h1:GIHkXkrCcU5SHzYlYWsR7HgePR4NP9k1jfUBnWKnQAM=
 github.com/magiconair/properties v1.8.5/go.mod h1:y3VJvCyxH9uVvJTWEGAELF3aiYNyPKd5NZ3oSwXrF60=
 github.com/mattn/go-colorable v0.0.9/go.mod h1:9vuHe8Xs5qXnSaW/c/ABM9alt+Vo+STaOChaDxuIBZU=
 github.com/mattn/go-isatty v0.0.3/go.mod h1:M+lRXTBqGeGNdLjl/ufCoiOlB5xdOkqRJdNxMWT7Zi4=
