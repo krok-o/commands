@@ -3,7 +3,7 @@ module input-command
 go 1.19
 
 require (
-	github.com/krok-o/command-sdk v0.0.1
+	github.com/krok-o/command-sdk v0.0.3
 	github.com/spf13/cobra v1.6.1
 )
 
