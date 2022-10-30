@@ -6,18 +6,17 @@ COPY go.sum .
 RUN go mod download
 
 COPY main.go .
-COPY pkg/ pkg/
 COPY cmd/ cmd/
-RUN go build -o issue-commenter main.go
+RUN go build -o input-command main.go
 
 
 FROM ubuntu:latest
-LABEL "name"="Issue Commenter Command"
+LABEL "name"="Input Command"
 LABEL "maintainer"="Gergely Brautigam <gergely@gergelybrautigam.com>"
 LABEL "version"="0.0.2"
 
 WORKDIR /app
-COPY --from=builder /build/issue-commenter .
+COPY --from=builder /build/input-command .
 
 RUN \
   apt-get update && \
@@ -25,4 +24,4 @@ RUN \
   update-ca-certificates && \
   rm -rf /var/lib/apt
 
-ENTRYPOINT ["/app/issue-commenter"]
+ENTRYPOINT ["/app/input-command"]
