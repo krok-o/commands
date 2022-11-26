@@ -24,7 +24,7 @@ func init() {
 // runRootCmd runs the main notifier command.
 func runRootCmd(cmd *cobra.Command, args []string) error {
 	return csdk.Output(map[string]string{
-		"extra-flag": "this is the added value",
+		"extra-flags": "this is the added value",
 	})
 }
 
